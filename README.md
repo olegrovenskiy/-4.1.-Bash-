@@ -51,52 +51,56 @@ e --> будет присвоено 3
 
 Текст скрипта ниже:
 
-[root@mck-mbox-mig script]# cat 1.sh  
-#! /usr/bin/env bash  
+	[root@mck-mbox-mig script]# cat 1.sh  
+	#! /usr/bin/env bash  
+	  
+	arr_ip=("http://192.168.0.1:80" "http://173.194.222.113:80" "http://87.250.250.242:80")  
+	  
+	echo "" > log  
+	for i in ${arr_ip[@]}  
+	do  
+	a=5  
+	while (($a>0))  
+	do  
+	curl $i  
+	if (($?==0))  
+	then  
+	echo $i   "service OK" >> log  
+	else  
+	echo $i   "service NOT OK" >> log  
+	fi  
+	a=$a-1  
+	done  
+	done  
+ 
+ Скрмпт был протестирован на рабочем сервере с рабочими адресами.
+ 
   
-arr_ip=("http://192.168.0.1:80" "http://173.194.222.113:80" "http://87.250.250.242:80")  
-  
-echo "" > log  
-for i in ${arr_ip[@]}  
-do  
-a=5  
-while (($a>0))  
-do  
-curl $i  
-if (($?==0))  
-then  
-echo $i   "service OK" >> log  
-else  
-echo $i   "service NOT OK" >> log  
-fi  
-a=$a-1  
-done  
-done  
-  
-  
-4. Задание
+## 4. Задание
 
-#! /usr/bin/env bash
+Изменённый скрипт:
+
+	#! /usr/bin/env bash
+  	
+	arr_ip=("http://192.168.0.1:80" "http://173.194.222.113:80" "http://87.250.250.242:80")  
   
-arr_ip=("http://192.168.0.1:80" "http://173.194.222.113:80" "http://87.250.250.242:80")  
-  
-echo "" > log  
-while ((1==1))  
-do  
-for i in ${arr_ip[@]}  
-do  
-a=5  
-while (($a>0))  
-do  
-curl $i  
-if (($?==0))  
-then  
-echo $i   "service OK" >> log  
-else  
-echo $i   "service NOT OK" >> error  
-break  
-fi  
-a=$a-1  
-done  
-done  
-done  
+	echo "" > log  
+	while ((1==1))  
+	do  
+	for i in ${arr_ip[@]}  
+	do  
+	a=5  
+	while (($a>0))  
+	do  
+	curl $i  
+	if (($?==0))  
+	then  
+	echo $i   "service OK" >> log  
+	else  
+	echo $i   "service NOT OK" >> error  
+	break  
+	fi  
+	a=$a-1  
+	done  
+	done  
+	done  
